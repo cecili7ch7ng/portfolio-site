@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wellness Device Regulatory Redesign — Cecilia Chang</title>
+<meta name="description" content="A UX research case study on auditing regulatory risk and redesigning trust for a cognitive-wellness wearable, by Cecilia Chang.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,450;0,9..144,600;1,9..144,380;1,9..144,450&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F8F4F4;
+    --paper-dim: #EFE7E8;
+    --ink: #232A35;
+    --ink-soft: #5B6472;
+    --orchid: #B68AA8;
+    --orchid-light: #D9B9CB;
+    --teal: #87C8C5;
+    --teal-text: #4E8C88;
+    --rose: #D7AAA5;
+    --shell: #B8C8D6;
+    --sage: #9CAA7C;
+    --line: rgba(35,42,53,0.12);
+    --max: 1180px;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Lora', serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, .display {
+    font-family: 'Fraunces', serif;
+    font-weight: 450;
+    line-height: 1.05;
+    margin: 0;
+    color: var(--ink);
+  }
+
+  a { color: inherit; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--orchid); outline-offset: 3px; }
+
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 32px; }
+
+  /* ---------- NAV ---------- */
+  header { position: absolute; top: 0; left: 0; right: 0; z-index: 10; padding: 30px 0; }
+  .nav-row { display: flex; justify-content: space-between; align-items: center; }
+  .wordmark { font-family: 'Fraunces', serif; font-size: 24px; font-weight: 500; text-decoration: none; color: var(--paper); letter-spacing: 0.01em; }
+  .wordmark .star-mark { width: 20px; height: 20px; }
+  nav ul { list-style: none; display: flex; gap: 34px; margin: 0; padding: 0; }
+  nav a { text-decoration: none; color: var(--paper); font-size: 15px; font-weight: 500; opacity: 0.88; transition: opacity 0.2s ease; }
+  nav a:hover { opacity: 1; }
+  nav a.current { opacity: 1; border-bottom: 1px solid var(--orchid-light); padding-bottom: 3px; }
+
+  /* ---------- CASE HERO ---------- */
+  .case-hero { background: var(--ink); color: var(--paper); padding: 190px 0 70px; position: relative; overflow: hidden; }
+
+  .back-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    text-decoration: none; font-size: 14px; color: rgba(250,246,238,0.6); margin-bottom: 34px;
+  }
+  .back-link:hover { color: var(--paper); }
+
+  .kicker { font-family: 'Lora', serif; font-size: 15px; font-weight: 500; color: var(--orchid-light); margin-bottom: 22px; }
+
+  .case-hero h1 { font-size: clamp(32px, 4.6vw, 54px); color: var(--paper); max-width: 17ch; }
+
+  .case-hero .sub { margin-top: 24px; font-size: 18px; line-height: 1.65; color: rgba(250,246,238,0.72); max-width: 58ch; }
+
+  .confidentiality-note {
+    margin-top: 28px;
+    padding: 14px 18px;
+    background: rgba(250,246,238,0.06);
+    border: 1px solid rgba(250,246,238,0.14);
+    border-radius: 3px;
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: rgba(250,246,238,0.6);
+    max-width: 62ch;
+  }
+
+  .meta-row { margin-top: 40px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; border-top: 1px solid rgba(250,246,238,0.14); padding-top: 32px; }
+  .meta-item h4 { font-family: 'Lora', serif; font-size: 12.5px; font-weight: 600; letter-spacing: 0.03em; text-transform: uppercase; color: rgba(250,246,238,0.45); margin: 0 0 8px; }
+  .meta-item p { margin: 0; font-size: 15.5px; color: rgba(250,246,238,0.9); line-height: 1.45; }
+
+  /* ---------- BODY SECTIONS ---------- */
+  .section { padding: 100px 0; }
+  .section-alt { background: var(--paper-dim); }
+
+  .section-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 30px; flex-wrap: wrap; margin-bottom: 48px; border-bottom: 1px solid var(--line); padding-bottom: 28px; }
+  .section-head h2 { font-size: clamp(26px, 3vw, 36px); max-width: 18ch; }
+  .section-head .step { font-family: 'Lora', serif; font-size: 14px; font-weight: 500; color: var(--ink-soft); white-space: nowrap; }
+
+  .prose { max-width: 700px; }
+  .prose p { font-size: 17.5px; line-height: 1.8; color: var(--ink); margin: 0 0 22px; }
+  .prose p:last-child { margin-bottom: 0; }
+  .prose strong { font-weight: 600; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+  .two-col .prose { max-width: none; }
+
+  /* ---------- DEVICE HERO GRAPHIC ---------- */
+  /* ---------- COVER IMAGE ---------- */
+  .cover-image { padding: 56px 0 0; }
+  .cover-frame {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    box-shadow: 0 30px 60px -24px rgba(35,42,53,0.3);
+    padding: 14px;
+  }
+  .cover-frame img { display: block; width: 100%; height: auto; border: 1px solid var(--line); }
+
+  .device-graphic {
+    margin: 40px 0 8px;
+    aspect-ratio: 16/7;
+    border-radius: 3px;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #8FA3BC 0%, #4C5C72 55%, #232A35 100%);
+  }
+  .device-graphic svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .device-graphic::after {
+    content: "";
+    position: absolute; inset: 0;
+    mix-blend-mode: overlay;
+    opacity: 0.35;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
+  }
+  .device-caption { margin: 12px 0 0; font-family: 'Fraunces', serif; font-style: italic; font-size: 14px; color: var(--ink-soft); }
+  .device-photo { background: var(--ink); }
+  .device-photo::after { display: none; }
+  .device-photo img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+  /* ---------- SEVERITY TABLE ---------- */
+  .severity-table { width: 100%; border-collapse: collapse; margin: 8px 0 12px; }
+  .severity-table th {
+    text-align: left; font-family: 'Lora', serif; font-size: 12.5px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.03em; color: var(--ink-soft);
+    padding: 0 16px 12px; border-bottom: 1px solid var(--line);
+  }
+  .severity-table td { padding: 16px; border-bottom: 1px solid var(--line); font-size: 15px; line-height: 1.55; vertical-align: top; }
+  .severity-table tr:last-child td { border-bottom: none; }
+  .sev-pill {
+    display: inline-block; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 20px;
+    white-space: nowrap;
+  }
+  .sev-critical { background: rgba(196, 90, 74, 0.14); color: #A2432F; }
+  .sev-high { background: rgba(214, 158, 46, 0.16); color: #96701E; }
+  .sev-moderate { background: rgba(135, 200, 197, 0.22); color: var(--teal-text); }
+
+  /* ---------- LANGUAGE COMPARE ---------- */
+  .lang-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 32px 0; }
+  .lang-card { padding: 24px; border-radius: 3px; }
+  .lang-card.before { background: rgba(196, 90, 74, 0.08); border: 1px solid rgba(196, 90, 74, 0.22); }
+  .lang-card.after { background: rgba(135, 200, 197, 0.14); border: 1px solid rgba(135, 200, 197, 0.35); }
+  .lang-label { font-family: 'Lora', serif; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: 10px; }
+  .lang-card.before .lang-label { color: #A2432F; }
+  .lang-card.after .lang-label { color: var(--teal-text); }
+  .lang-card p { font-family: 'Fraunces', serif; font-style: italic; font-size: 17px; line-height: 1.5; margin: 0; color: var(--ink); }
+
+  /* ---------- EVIDENCE TIERS ---------- */
+  .tier-legend { display: flex; flex-direction: column; gap: 14px; margin: 8px 0 12px; }
+  .tier-row { display: grid; grid-template-columns: 140px 1fr; gap: 18px; align-items: center; }
+  .tier-bar { height: 10px; border-radius: 6px; }
+  .tier-established { background: var(--teal); }
+  .tier-studied { background: var(--orchid-light); }
+  .tier-unproven { background: var(--line); }
+  .tier-row p { margin: 0; font-size: 14.5px; color: var(--ink-soft); }
+  .tier-row .tier-name { font-weight: 600; color: var(--ink); font-size: 14.5px; }
+
+  /* ---------- PERSONAS ---------- */
+  .persona-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+  .persona-card { background: var(--paper); border: 1px solid var(--line); border-radius: 4px; padding: 30px 28px; }
+  .persona-card h3 { font-size: 19px; margin-bottom: 4px; }
+  .persona-sub { font-size: 13.5px; color: var(--ink-soft); margin-bottom: 18px; }
+  .persona-card dl { margin: 0; }
+  .persona-card dt { font-family: 'Lora', serif; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.02em; color: var(--orchid); margin-top: 16px; }
+  .persona-card dt:first-of-type { margin-top: 0; }
+  .persona-card dd { margin: 4px 0 0; font-size: 14.5px; line-height: 1.6; color: var(--ink); }
+
+  /* ---------- PRINCIPLES LIST ---------- */
+  .principles-list { display: flex; flex-direction: column; gap: 26px; max-width: 760px; }
+  .principle { display: grid; grid-template-columns: 34px 1fr; gap: 18px; padding-bottom: 26px; border-bottom: 1px solid var(--line); }
+  .principle:last-child { border-bottom: none; padding-bottom: 0; }
+  .principle .num { font-family: 'Fraunces', serif; font-size: 18px; color: var(--orchid); font-weight: 600; }
+  .principle p { margin: 0; font-size: 16px; line-height: 1.7; color: var(--ink); }
+  .principle strong { font-weight: 600; }
+
+  /* ---------- STATUS ---------- */
+  .status-banner {
+    background: var(--ink); color: var(--paper);
+    padding: 40px 36px; border-radius: 4px;
+    display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap;
+  }
+  .status-banner h3 { color: var(--paper); font-size: 20px; margin-bottom: 6px; }
+  .status-banner p { margin: 0; color: rgba(250,246,238,0.65); font-size: 14.5px; max-width: 48ch; }
+  .status-tag { font-family: 'Lora', serif; font-size: 12.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; color: var(--orchid-light); white-space: nowrap; border: 1px solid rgba(217,185,203,0.4); padding: 8px 14px; border-radius: 20px; }
+
+  /* ---------- NEXT PROJECT ---------- */
+  .next-project { padding: 90px 0; }
+  .next-project-row { display: flex; justify-content: space-between; align-items: center; gap: 30px; flex-wrap: wrap; }
+  .next-project h2 { font-size: clamp(24px, 3vw, 32px); max-width: 14ch; margin-bottom: 8px; }
+  .next-project p { margin: 0; color: var(--ink-soft); font-size: 15px; }
+
+  .project-link {
+    display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
+    font-weight: 600; font-size: 15px; color: var(--ink);
+    border-bottom: 1px solid var(--orchid); padding-bottom: 2px; white-space: nowrap;
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer { padding: 80px 0 50px; background: var(--paper); }
+  .footer-row { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 40px; border-top: 1px solid var(--line); padding-top: 50px; }
+  .footer-cta h2 { font-size: clamp(26px, 3.2vw, 34px); max-width: 10ch; }
+  .footer-cols { display: flex; gap: 70px; }
+  .footer-col h4 { font-family: 'Lora', serif; font-size: 13px; font-weight: 600; color: var(--ink-soft); margin: 0 0 16px; }
+  .footer-col ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+  .footer-col a { text-decoration: none; font-size: 15px; color: var(--ink); }
+  .footer-col a:hover { color: var(--orchid); }
+  .footer-bottom { margin-top: 60px; display: flex; justify-content: space-between; font-size: 13.5px; color: var(--ink-soft); }
+
+  @media (max-width: 860px) {
+    header { padding: 24px 0; }
+    .wrap { padding: 0 22px; }
+    nav ul { gap: 20px; }
+    .case-hero { padding: 130px 0 50px; }
+    .meta-row { grid-template-columns: repeat(2, 1fr); gap: 28px 20px; }
+    .section { padding: 64px 0; }
+    .two-col { grid-template-columns: 1fr; gap: 34px; }
+    .lang-compare { grid-template-columns: 1fr; }
+    .persona-grid { grid-template-columns: 1fr; }
+    .principle { grid-template-columns: 1fr; gap: 6px; }
+    .status-banner { flex-direction: column; align-items: flex-start; }
+    .next-project-row { flex-direction: column; align-items: flex-start; }
+    .footer-row { flex-direction: column; }
+    .footer-cols { gap: 40px; }
+    .severity-table, .severity-table thead, .severity-table tbody, .severity-table tr, .severity-table td { display: block; width: auto; }
+    .severity-table thead { display: none; }
+    .severity-table tr { padding: 16px 0; border-bottom: 1px solid var(--line); }
+    .severity-table tr:last-child { border-bottom: none; }
+    .severity-table td { padding: 0; border-bottom: none; white-space: normal; }
+    .severity-table td:first-child { margin-bottom: 10px; }
+    .severity-table td:last-child { margin-top: 10px; }
+    .floral-corner { display: none; }
+  }
+
+  /* ---------- MOTIFS ---------- */
+  .star-mark { width: 15px; height: 15px; display: inline-block; flex-shrink: 0; color: var(--orchid); vertical-align: -2px; }
+  .step .star-mark { margin-right: 6px; }
+  .star-mark.xl { width: 40px; height: 40px; }
+  .star-mark.paper { color: var(--paper); opacity: 0.8; }
+  .star-mark.spin-slow { animation: spin-slow 22s linear infinite; }
+  @keyframes spin-slow { to { transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) { .star-mark.spin-slow { animation: none; } }
+  .wordmark-row { display: inline-flex; align-items: center; gap: 8px; }
+  .floral-corner { position: absolute; pointer-events: none; opacity: 0.5; z-index: 1; }
+  .floral-corner svg { display: block; width: 100%; height: 100%; }
+
+  /* ---------- SECTION TRACKER ---------- */
+  .toc {
+    position: fixed;
+    top: 50%;
+    right: 30px;
+    transform: translateY(-50%);
+    z-index: 40;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: rgba(248,244,244,0.78);
+    backdrop-filter: blur(10px) saturate(1.3);
+    -webkit-backdrop-filter: blur(10px) saturate(1.3);
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    padding: 18px 13px;
+    box-shadow: 0 16px 34px -18px rgba(35,42,53,0.3);
+  }
+  .toc a {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    text-decoration: none;
+    color: var(--ink-soft);
+    opacity: 0.55;
+    transition: opacity 0.25s ease, color 0.25s ease;
+  }
+  .toc a .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--ink-soft); opacity: 0.5; flex-shrink: 0;
+    transition: background 0.25s ease, opacity 0.25s ease, transform 0.25s ease;
+  }
+  .toc a .label {
+    font-family: 'Lora', serif;
+    font-size: 12.5px;
+    font-weight: 500;
+    max-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    transition: max-width 0.3s ease;
+  }
+  .toc a:hover, .toc a.active { opacity: 1; color: var(--ink); }
+  .toc a:hover .label, .toc a.active .label { max-width: 160px; }
+  .toc a.active .dot { background: var(--orchid); opacity: 1; transform: scale(1.35); }
+  @media (max-width: 1320px) { .toc { display: none; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav-row">
+    <a class="wordmark wordmark-row" href="index.html">
+      <svg class="star-mark paper" viewBox="0 0 100 100" fill="currentColor" aria-hidden="true"><polygon points="50,3 55.19,39.22 86.75,20.7 63.43,46.93 95.82,60.46 59.76,57.78 70.39,92.35 50,63 29.61,92.35 40.45,57.62 4.18,60.46 36.69,46.96 13.25,20.7 44.53,38.64"/></svg>
+      Cecilia Chang
+    </a>
+    <nav>
+      <ul>
+        <li><a href="index.html#work" class="current">Work</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="mailto:cecilc7@uw.edu">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<section class="case-hero">
+  <div class="wrap">
+    <a class="back-link" href="index.html#work">&larr; Back to work</a>
+    <div class="kicker">Case Study — In Progress</div>
+    <h1>Wellness device regulatory redesign</h1>
+    <p class="sub">A risk audit of a healthcare device's website marketing claims — resulting in a pivot to a wellness angle, including a rewritten copy and a website redesign that I am currently leading.</p>
+    <p class="confidentiality-note">The company's name and its exact marketing copy are withheld here to protect a client's confidential business decisions. Findings and language below are generalized to preserve that confidentiality while still showing the actual analysis.</p>
+
+    <div class="meta-row">
+      <div class="meta-item">
+        <h4>Role</h4>
+        <p>UX researcher — risk audit, content strategy, redesign lead</p>
+      </div>
+      <div class="meta-item">
+        <h4>Company</h4>
+        <p>Early-stage wellness-tech startup (name withheld)</p>
+      </div>
+      <div class="meta-item">
+        <h4>Method</h4>
+        <p>Regulatory claims audit · evidence-tiering · personas · redesign</p>
+      </div>
+      <div class="meta-item">
+        <h4>Status</h4>
+        <p>Active — redesign and research in progress</p>
+      </div>
+    </div>
+  </div>
+  <svg class="star-mark xl spin-slow paper" viewBox="0 0 100 100" fill="currentColor" aria-hidden="true" style="position:absolute; top:90px; right:7%; opacity:0.4;"><polygon points="50,3 55.19,39.22 86.75,20.7 63.43,46.93 95.82,60.46 59.76,57.78 70.39,92.35 50,63 29.61,92.35 40.45,57.62 4.18,60.46 36.69,46.96 13.25,20.7 44.53,38.64"/></svg>
+  <div class="floral-corner" style="width:120px; height:170px; left:-15px; bottom:-20px; transform:scaleX(-1) rotate(-6deg); opacity:0.3;">
+    <svg viewBox="0 0 240 320" aria-hidden="true">
+      <path d="M120 310 C 100 250, 150 200, 110 150 C 80 110, 130 70, 105 20" fill="none" stroke="#F8F4F4" stroke-width="2" stroke-linecap="round" opacity="0.4"/>
+      <path d="M112 240 C 85 235, 70 215, 78 195 C 100 205, 112 220, 112 240 Z" fill="#9CAA7C" opacity="0.5" stroke="#F8F4F4" stroke-width="1" stroke-opacity="0.3"/>
+      <path d="M115 170 C 145 168, 162 150, 156 128 C 132 136, 118 150, 115 170 Z" fill="#9CAA7C" opacity="0.45" stroke="#F8F4F4" stroke-width="1" stroke-opacity="0.3"/>
+      <g transform="translate(105,25)">
+        <ellipse cx="0" cy="-12" rx="7" ry="13" fill="#D9B9CB" opacity="0.75" transform="rotate(0)"/>
+        <ellipse cx="0" cy="-12" rx="7" ry="13" fill="#D9B9CB" opacity="0.75" transform="rotate(72)"/>
+        <ellipse cx="0" cy="-12" rx="7" ry="13" fill="#D9B9CB" opacity="0.75" transform="rotate(144)"/>
+        <ellipse cx="0" cy="-12" rx="7" ry="13" fill="#D9B9CB" opacity="0.75" transform="rotate(216)"/>
+        <ellipse cx="0" cy="-12" rx="7" ry="13" fill="#D9B9CB" opacity="0.75" transform="rotate(288)"/>
+        <circle r="5" fill="#87C8C5"/>
+      </g>
+    </svg>
+  </div>
+</section>
+
+<div class="cover-image">
+  <div class="wrap">
+    <div class="cover-frame">
+      <img src="cover-auditing.jpg" alt="Mockups of the product's marketing and clinician-facing web pages.">
+    </div>
+  </div>
+</div>
+
+<!-- ============ THE PROBLEM ============ -->
+<section class="section" id="problem">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>The problem</h2>
+      <span class="step"><svg class="star-mark" viewBox="0 0 100 100" fill="currentColor" aria-hidden="true"><polygon points="50,3 55.19,39.22 86.75,20.7 63.43,46.93 95.82,60.46 59.76,57.78 70.39,92.35 50,63 29.61,92.35 40.45,57.62 4.18,60.46 36.69,46.96 13.25,20.7 44.53,38.64"/></svg>01 — Context</span>
+    </div>
+    <div class="prose">
+      <p>The product is a wearable that delivers rhythmic sensory stimulation, marketed to people worried about cognitive decline in themselves or a parent. It sits in a genuinely promising research area — but "promising research" and "what the marketing site actually says" had drifted apart, and nobody had audited the gap. I was brought on to redesign the site's IA and copy; before I could redesign anything, the first two weeks became an audit instead.</p>
+    </div>
+
+    <div class="device-graphic device-photo">
+      <img src="product-glasses.jpg" alt="The wearable device: a pair of glasses with embedded sensors, shown lit up.">
+    </div>
+    <p class="device-caption">The product: a wearable that delivers rhythmic sensory stimulation.</p>
+  </div>
+</section>
+
+<!-- ============ THE AUDIT ============ -->
+<section class="section section-alt" id="audit">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>The audit</h2>
+        <p style="margin:0; max-width:48ch; color:var(--ink-soft); font-size:15px;">Auditing every claim on the site against what it would need to prove to be safely marketed.</p>
+      </div>
+      <span class="step"><svg class="star-mark" viewBox="0 0 100 100" fill="currentColor" aria-hidden="true"><polygon points="50,3 55.19,39.22 86.75,20.7 63.43,46.93 95.82,60.46 59.76,57.78 70.39,92.35 50,63 29.61,92.35 40.45,57.62 4.18,60.46 36.69,46.96 13.25,20.7 44.53,38.64"/></svg>02 — Risk analysis</span>
+    </div>
+
+    <div class="prose" style="max-width: 760px; margin-bottom: 40px;">
+      <p><strong>Method:</strong> I read the site the way a regulator would — line by line, flagging every claim as either a low-burden wellness statement or a disease-treatment claim that triggers FDA medical-device requirements, then ranked each by how exposed it left the company.</p>
+    </div>
+
+    <table class="severity-table">
+      <thead>
+        <tr><th>Finding type</th><th>Risk level</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>A page header used direct disease-treatment language for a specific, named condition — the single most FDA-flaggable phrase on the site.</td>
+          <td><span class="sev-pill sev-critical">Critical</span></td>
+        </tr>
+        <tr>
+          <td>The footer disclaimer directly contradicted the page's own headline above it.</td>
+          <td><span class="sev-pill sev-critical">Critical</span></td>
+        </tr>
+        <tr>
+          <td>Third-party trial results ran under a generic heading, with the real (different) device named only in small print.</td>
+          <td><span class="sev-pill sev-high">High</span></td>
+        </tr>
+        <tr>
+          <td>Outside safety statistics were framed in a way a reader would take as the company's own safety record.</td>
+          <td><span class="sev-pill sev-high">High</span></td>
+        </tr>
+        <tr>
+          <td>A drug-interaction claim and a pediatric-safety claim both appeared with no supporting data.</td>
+          <td><span class="sev-pill sev-moderate">Moderate</span></td>
+        </tr>
+        <tr>
+          <td>Usage instructions read as a clinical dosing protocol rather than general wellness guidance.</td>
+          <td><span class="sev-pill sev-moderate">Moderate</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="prose" style="max-width: 760px; margin-top: 24px;">
+      <p>The two critical findings went to leadership first — the clearest examples if the page were ever reviewed by the FDA, and the easiest to fix without losing the page's structure.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THE PIVOT ============ -->
+<section class="section" id="pivot">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>The pivot</h2>
+      <span class="step"><svg class="star-mark" viewBox="0 0 100 100" fill="currentColor" aria-hidden="true"><polygon points="50,3 55.19,39.22 86.75,20.7 63.43,46.93 95.82,60.46 59.76,57.78 70.39,92.35 50,63 29.61,92.35 40.45,57.62 4.18,60.46 36.69,46.96 13.25,20.7 44.53,38.64"/></svg>03 — Strategy</span>
+    </div>
+    <div class="prose">
+      <p>The audit's real output wasn't a bug list — it was a strategic fork: pursue formal FDA clearance as a medical device (expensive, slow), or reposition under the FDA's General Wellness Policy (general wellness only, no disease claims). I recommended the wellness path — not as a compliance workaround, but as the more honest claim given the evidence. The research on this mechanism is real and promising, but early; a wellness positioning let the company make truthful, calibrated claims instead of implicitly promising a treatment it can't yet back up.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THE REDESIGN ============ -->
+<section class="section section-alt" id="principles">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>The redesign principles</h2>
+        <p style="margin:0; max-width:48ch; color:var(--ink-soft); font-size:15px;">Five rules I wrote to translate the audit into a rebuilt information architecture.</p>
+      </div>
+      <span class="step"><svg class="star-mark" viewBox="0 0 100 100" fill="currentColor" aria-hidden="true"><polygon points="50,3 55.19,39.22 86.75,20.7 63.43,46.93 95.82,60.46 59.76,57.78 70.39,92.35 50,63 29.61,92.35 40.45,57.62 4.18,60.46 36.69,46.96 13.25,20.7 44.53,38.64"/></svg>04 — Redesign</span>
+    </div>
+
+    <div class="lang-compare">
+      <div class="lang-card before">
+        <div class="lang-label">Before — superlative</div>
+        <p>"Reverses cognitive decline and restores mental clarity."</p>
+      </div>
+      <div class="lang-card after">
+        <div class="lang-label">After — calibrated</div>
+        <p>"Is being studied for its potential to support cognitive wellness."</p>
+      </div>
+    </div>
+    <p style="font-size: 14px; color: var(--ink-soft); margin: -12px 0 36px;">Illustrative example — not the client's actual copy.</p>
+
+    <div class="principles-list">
+      <div class="principle"><span class="num">01</span><p><strong>Lead with mechanism, not outcome.</strong> Mechanism claims are far more defensible than outcome claims — and more honest about what's actually known.</p></div>
+      <div class="principle"><span class="num">02</span><p><strong>Put regulatory status in the primary visual hierarchy, not the footer.</strong> The wellness disclaimer belongs near the primary claims, not in 8-point gray text.</p></div>
+      <div class="principle"><span class="num">03</span><p><strong>Replace superlative language with calibrated language.</strong> "Improves," "reverses," "boosts" become "is designed to," "may support," "is being studied for."</p></div>
+      <div class="principle"><span class="num">04</span><p><strong>Separate claims by evidence tier</strong>, with a visible strength indicator rather than one undifferentiated wall of citations.</p></div>
+      <div class="principle"><span class="num">05</span><p><strong>Give the caregiver a distinct entry point.</strong> Someone buying this for a parent has different risk tolerance than someone monitoring their own health.</p></div>
+    </div>
+
+    <div class="tier-legend" style="margin-top: 48px;">
+      <div class="tier-row"><div class="tier-bar tier-established"></div><p><span class="tier-name">Mechanistically established</span> — general research on how this class of stimulation interacts with the body.</p></div>
+      <div class="tier-row"><div class="tier-bar tier-studied"></div><p><span class="tier-name">Studied for this product</span> — evidence specific to this device and claim, where it exists.</p></div>
+      <div class="tier-row"><div class="tier-bar tier-unproven"></div><p><span class="tier-name">Unproven / actively researched</span> — named honestly as open questions, not implied answers.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHO IT'S FOR ============ -->
+<section class="section" id="personas">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Who it's for</h2>
+      <span class="step"><svg class="star-mark" viewBox="0 0 100 100" fill="currentColor" aria-hidden="true"><polygon points="50,3 55.19,39.22 86.75,20.7 63.43,46.93 95.82,60.46 59.76,57.78 70.39,92.35 50,63 29.61,92.35 40.45,57.62 4.18,60.46 36.69,46.96 13.25,20.7 44.53,38.64"/></svg>05 — Personas</span>
+    </div>
+    <div class="persona-grid">
+      <div class="persona-card">
+        <h3>The Concerned Adult</h3>
+        <p class="persona-sub">Self-monitoring, 55–70</p>
+        <dl>
+          <dt>Context</dt>
+          <dd>Noticing early memory lapses in themselves, not formally diagnosed, may be scared to find out.</dd>
+          <dt>Frustrations</dt>
+          <dd>Distrust of "miracle device" marketing; confused by clinical jargon; unsure if this is a medical device or a wellness gadget.</dd>
+          <dt>Decision drivers</dt>
+          <dd>Safety, low commitment (a real refund window), a plain-language answer to "does this actually work."</dd>
+        </dl>
+      </div>
+      <div class="persona-card">
+        <h3>The Caregiver</h3>
+        <p class="persona-sub">Buying on someone else's behalf, 40–60</p>
+        <dl>
+          <dt>Context</dt>
+          <dd>Adult child of a parent with early/mid cognitive decline, already deep into researching treatments and fatigued by a lack of good options.</dd>
+          <dt>Frustrations</dt>
+          <dd>Marketing that oversells relative to the evidence feels exploitative given their emotional state; hard to quickly verify legitimacy.</dd>
+          <dt>Decision drivers</dt>
+          <dd>Credibility signals (institutional affiliations, funding sources), clear research status, an easy return policy.</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THE EVIDENCE PACKET ============ -->
+<section class="section section-alt" id="evidence">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Writing the evidence packet</h2>
+      <span class="step"><svg class="star-mark" viewBox="0 0 100 100" fill="currentColor" aria-hidden="true"><polygon points="50,3 55.19,39.22 86.75,20.7 63.43,46.93 95.82,60.46 59.76,57.78 70.39,92.35 50,63 29.61,92.35 40.45,57.62 4.18,60.46 36.69,46.96 13.25,20.7 44.53,38.64"/></svg>06 — Deliverable</span>
+    </div>
+    <div class="prose">
+      <p>Alongside the redesign, I wrote a clinician-facing evidence packet from scratch — the document a physician reads before deciding whether to recommend the product to a patient. It covers the mechanism of action, a study-evidence summary by outcome type, safety and contraindication info, and regulatory status, each claim tied to a citation and tagged by evidence tier.</p>
+      <p>Writing it meant translating primary neuroscience literature into language a prescribing physician could use in a two-minute conversation with a patient — without dumbing down the mechanism or overstating what it means clinically. That translation, more than the visual design, is the actual deliverable.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STATUS ============ -->
+<section class="section" id="status">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Where this stands</h2>
+      <span class="step"><svg class="star-mark" viewBox="0 0 100 100" fill="currentColor" aria-hidden="true"><polygon points="50,3 55.19,39.22 86.75,20.7 63.43,46.93 95.82,60.46 59.76,57.78 70.39,92.35 50,63 29.61,92.35 40.45,57.62 4.18,60.46 36.69,46.96 13.25,20.7 44.53,38.64"/></svg>07 — Status</span>
+    </div>
+    <div class="status-banner">
+      <div>
+        <h3>Redesign in progress.</h3>
+        <p>The homepage hero and science page are in wireframes now, with a comprehension-testing pass and a small before/after usability test planned against the original site before this case study gets its full before/after evidence.</p>
+      </div>
+      <span class="status-tag">Active — Fall 2026</span>
+    </div>
+  </div>
+</section>
+
+<section class="next-project">
+  <div class="wrap next-project-row">
+    <div>
+      <h2>More work, this way.</h2>
+      <p>See what else I've been building.</p>
+    </div>
+    <a class="project-link" href="index.html#work">Back to selected work</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-row">
+      <div class="footer-cta">
+        <h2>Let's talk.</h2>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Navigate</h4>
+          <ul>
+            <li><a href="index.html#work">Work</a></li>
+            <li><a href="about.html">About</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="mailto:cecilc7@uw.edu">Email</a></li>
+            <li><a href="https://www.linkedin.com/in/cecili7" target="_blank" rel="noopener">LinkedIn</a></li>
+            <li><a href="Cecilia-Chang-Resume.pdf" target="_blank" rel="noopener">Resume</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>Seattle, WA</span>
+      <span>© 2026 Cecilia Chang</span>
+    </div>
+  </div>
+</footer>
+
+<nav class="toc" aria-label="Section tracker">
+  <a href="#problem"><span class="dot"></span><span class="label">The problem</span></a>
+  <a href="#audit"><span class="dot"></span><span class="label">The audit</span></a>
+  <a href="#pivot"><span class="dot"></span><span class="label">The pivot</span></a>
+  <a href="#principles"><span class="dot"></span><span class="label">Redesign principles</span></a>
+  <a href="#personas"><span class="dot"></span><span class="label">Who it's for</span></a>
+  <a href="#evidence"><span class="dot"></span><span class="label">Evidence packet</span></a>
+  <a href="#status"><span class="dot"></span><span class="label">Where this stands</span></a>
+</nav>
+
+<script>
+(function () {
+  var sections = Array.prototype.slice.call(document.querySelectorAll('section[id]'));
+  var links = Array.prototype.slice.call(document.querySelectorAll('.toc a'));
+  if (!sections.length || !links.length) return;
+  var map = {};
+  links.forEach(function (l) { map[l.getAttribute('href').slice(1)] = l; });
+  var ticking = false;
+  function updateActive() {
+    ticking = false;
+    var threshold = window.innerHeight * 0.35;
+    var current = sections[0];
+    for (var i = 0; i < sections.length; i++) {
+      var r = sections[i].getBoundingClientRect();
+      if (r.top <= threshold) current = sections[i];
+    }
+    var link = map[current.id];
+    if (!link) return;
+    links.forEach(function (l) { l.classList.remove('active'); });
+    link.classList.add('active');
+  }
+  function onScroll() {
+    if (!ticking) {
+      window.requestAnimationFrame(updateActive);
+      ticking = true;
+    }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  updateActive();
+})();
+</script>
+
+</body>
+</html>

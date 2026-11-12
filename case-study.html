@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ADHD Accessibility in Higher Education — Cecilia Chang</title>
+<meta name="description" content="A qualitative research case study on ADHD experiences in higher education, by Cecilia Chang.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,450;0,9..144,600;1,9..144,380;1,9..144,450&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F8F4F4;
+    --paper-dim: #EFE7E8;
+    --ink: #232A35;
+    --ink-soft: #5B6472;
+    --orchid: #B68AA8;
+    --orchid-light: #D9B9CB;
+    --teal: #87C8C5;
+    --teal-text: #4E8C88;
+    --rose: #D7AAA5;
+    --shell: #B8C8D6;
+    --sage: #9CAA7C;
+    --line: rgba(35,42,53,0.12);
+    --max: 1180px;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Lora', serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, .display {
+    font-family: 'Fraunces', serif;
+    font-weight: 450;
+    line-height: 1.05;
+    margin: 0;
+    color: var(--ink);
+  }
+
+  a { color: inherit; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--orchid); outline-offset: 3px; }
+
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 32px; }
+
+  /* ---------- NAV ---------- */
+  header { position: absolute; top: 0; left: 0; right: 0; z-index: 10; padding: 30px 0; }
+  .nav-row { display: flex; justify-content: space-between; align-items: center; }
+  .wordmark { font-family: 'Fraunces', serif; font-size: 24px; font-weight: 500; text-decoration: none; color: var(--paper); letter-spacing: 0.01em; }
+  .wordmark .star-mark { width: 20px; height: 20px; }
+  nav ul { list-style: none; display: flex; gap: 34px; margin: 0; padding: 0; }
+  nav a { text-decoration: none; color: var(--paper); font-size: 15px; font-weight: 500; opacity: 0.88; transition: opacity 0.2s ease; }
+  nav a:hover { opacity: 1; }
+  nav a.current { opacity: 1; border-bottom: 1px solid var(--orchid-light); padding-bottom: 3px; }
+
+  /* ---------- CASE HERO ---------- */
+  .case-hero {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 190px 0 70px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    font-size: 14px;
+    color: rgba(250,246,238,0.6);
+    margin-bottom: 34px;
+  }
+  .back-link:hover { color: var(--paper); }
+
+  .kicker {
+    font-family: 'Lora', serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--orchid-light);
+    margin-bottom: 22px;
+  }
+
+  .case-hero h1 {
+    font-size: clamp(34px, 5vw, 58px);
+    color: var(--paper);
+    max-width: 15ch;
+  }
+
+  .case-hero .sub {
+    margin-top: 24px;
+    font-size: 18px;
+    line-height: 1.65;
+    color: rgba(250,246,238,0.72);
+    max-width: 56ch;
+  }
+
+  .meta-row {
+    margin-top: 56px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    border-top: 1px solid rgba(250,246,238,0.14);
+    padding-top: 32px;
+  }
+
+  .meta-item h4 {
+    font-family: 'Lora', serif;
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: rgba(250,246,238,0.45);
+    margin: 0 0 8px;
+  }
+
+  .meta-item p { margin: 0; font-size: 15.5px; color: rgba(250,246,238,0.9); line-height: 1.45; }
+
+  /* ---------- BODY SECTIONS ---------- */
+  .section { padding: 100px 0; }
+  .section.tight { padding: 70px 0; }
+  .section-alt { background: var(--paper-dim); }
+
+  .section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-bottom: 48px;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 28px;
+  }
+
+  .section-head h2 { font-size: clamp(26px, 3vw, 36px); max-width: 16ch; }
+  .section-head .step { font-family: 'Lora', serif; font-size: 14px; font-weight: 500; color: var(--ink-soft); white-space: nowrap; }
+
+  .prose { max-width: 680px; }
+  .prose p { font-size: 17.5px; line-height: 1.8; color: var(--ink); margin: 0 0 22px; }
+  .prose p:last-child { margin-bottom: 0; }
+  .prose strong { font-weight: 600; }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+  }
+
+  .two-col .prose { max-width: none; }
+
+  /* ---------- QUOTE ---------- */
+  .pull-quote {
+    margin: 40px 0;
+    padding: 6px 0 6px 28px;
+    border-left: 2px solid var(--orchid);
+  }
+  .pull-quote p {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 380;
+    font-size: 21px;
+    line-height: 1.55;
+    color: var(--ink);
+    margin: 0;
+  }
+
+  /* ---------- LESSON BLOCKS (messy middle) ---------- */
+  .lesson { margin-bottom: 44px; }
+  .lesson:last-child { margin-bottom: 0; }
+  .lesson p.lead {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 1.35;
+    margin: 0 0 14px;
+    max-width: 24ch;
+  }
+  .lesson p.body-text { font-size: 17px; line-height: 1.8; color: var(--ink-soft); margin: 0; max-width: 640px; }
+
+  /* ---------- ARTIFACTS ---------- */
+  .artifacts-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 44px;
+    align-items: start;
+  }
+
+  .artifact-frame {
+    background: var(--paper);
+    padding: 14px 14px 40px;
+    border: 1px solid var(--line);
+    box-shadow: 0 22px 44px -20px rgba(35,42,53,0.25);
+  }
+
+  .artifact-frame img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--line);
+  }
+
+  .artifact-frame.tilt-a { transform: rotate(-1.1deg); }
+  .artifact-frame.tilt-b { transform: rotate(1deg); margin-top: 46px; }
+
+  .artifact-caption {
+    margin: 16px 4px 0;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- POSTER SHOWCASE ---------- */
+  .poster-frame {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    box-shadow: 0 30px 60px -24px rgba(35,42,53,0.3);
+    padding: 16px;
+    margin: 40px 0 14px;
+  }
+
+  /* ---------- COVER IMAGE ---------- */
+  .cover-image { padding: 56px 0 0; }
+  .cover-frame {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    box-shadow: 0 30px 60px -24px rgba(35,42,53,0.3);
+    padding: 14px;
+  }
+  .cover-frame img { display: block; width: 100%; height: auto; border: 1px solid var(--line); }
+  .poster-frame img { display: block; width: 100%; height: auto; border: 1px solid var(--line); }
+  .poster-caption {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 44px;
+  }
+  .poster-caption p { margin: 0; font-family: 'Fraunces', serif; font-style: italic; font-size: 14.5px; color: var(--ink-soft); }
+  .poster-caption a { font-size: 13.5px; font-weight: 600; color: var(--ink); border-bottom: 1px solid var(--orchid); text-decoration: none; white-space: nowrap; }
+
+  .detail-frame {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    box-shadow: 0 22px 44px -20px rgba(35,42,53,0.22);
+    padding: 12px;
+    margin-top: 8px;
+  }
+  .detail-frame img { display: block; width: 100%; height: auto; }
+
+  /* ---------- FINDINGS ---------- */
+  .findings-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+
+  .finding-card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 32px 28px;
+  }
+
+  .finding-num {
+    font-family: 'Fraunces', serif;
+    font-size: 14px;
+    color: var(--teal-text);
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+
+  .finding-card h3 { font-size: 20px; margin-bottom: 14px; }
+
+  .finding-card blockquote {
+    margin: 0 0 16px;
+    padding-left: 16px;
+    border-left: 2px solid var(--line);
+    font-style: italic;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+
+  .finding-card p.note { margin: 0; font-size: 14.5px; line-height: 1.6; color: var(--ink-soft); }
+
+  /* ---------- IMPLICATIONS LIST ---------- */
+  .implications-list { display: flex; flex-direction: column; gap: 26px; max-width: 720px; }
+  .implication {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 20px;
+    padding-bottom: 26px;
+    border-bottom: 1px solid var(--line);
+  }
+  .implication:last-child { border-bottom: none; padding-bottom: 0; }
+  .implication .tag { font-size: 13px; font-weight: 600; color: var(--orchid); text-transform: uppercase; letter-spacing: 0.03em; padding-top: 2px; }
+  .implication p { margin: 0; font-size: 16px; line-height: 1.7; color: var(--ink); }
+
+  /* ---------- REFLECTION ---------- */
+  .reflection { background: var(--ink); color: var(--paper); }
+  .reflection .section-head { border-bottom-color: rgba(250,246,238,0.16); }
+  .reflection .section-head h2 { color: var(--paper); }
+  .reflection .section-head p { color: rgba(250,246,238,0.6); margin: 0; max-width: 40ch; font-size: 15px; }
+
+  .reflect-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px 50px;
+  }
+
+  .reflect-item p.lead {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 19px;
+    color: var(--paper);
+    margin: 0 0 10px;
+  }
+  .reflect-item p.body-text { font-size: 15.5px; line-height: 1.7; color: rgba(250,246,238,0.68); margin: 0; }
+
+  .closing-note {
+    margin-top: 64px;
+    padding-top: 40px;
+    border-top: 1px solid rgba(250,246,238,0.16);
+    font-size: 16px;
+    line-height: 1.75;
+    color: rgba(250,246,238,0.82);
+    max-width: 640px;
+  }
+
+  /* ---------- NEXT PROJECT ---------- */
+  .next-project {
+    padding: 90px 0;
+  }
+  .next-project-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+    flex-wrap: wrap;
+  }
+  .next-project h2 { font-size: clamp(24px, 3vw, 32px); max-width: 14ch; margin-bottom: 8px; }
+  .next-project p { margin: 0; color: var(--ink-soft); font-size: 15px; }
+
+  .project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--ink);
+    border-bottom: 1px solid var(--orchid);
+    padding-bottom: 2px;
+    white-space: nowrap;
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer { padding: 80px 0 50px; background: var(--paper); }
+
+  .footer-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 40px;
+    border-top: 1px solid var(--line);
+    padding-top: 50px;
+  }
+
+  .footer-cta h2 { font-size: clamp(26px, 3.2vw, 34px); max-width: 10ch; }
+
+  .footer-cols { display: flex; gap: 70px; }
+
+  .footer-col h4 { font-family: 'Lora', serif; font-size: 13px; font-weight: 600; color: var(--ink-soft); margin: 0 0 16px; }
+
+  .footer-col ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+
+  .footer-col a { text-decoration: none; font-size: 15px; color: var(--ink); }
+  .footer-col a:hover { color: var(--orchid); }
+
+  .footer-bottom {
+    margin-top: 60px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 13.5px;
+    color: var(--ink-soft);
+  }
+
+  @media (max-width: 860px) {
+    header { padding: 24px 0; }
+    .wrap { padding: 0 22px; }
+    nav ul { gap: 20px; }
+    .case-hero { padding: 130px 0 50px; }
+    .meta-row { grid-template-columns: repeat(2, 1fr); gap: 28px 20px; }
+    .section { padding: 64px 0; }
+    .two-col { grid-template-columns: 1fr; gap: 34px; }
+    .findings-grid { grid-template-columns: 1fr; }
+    .artifacts-grid { grid-template-columns: 1fr; gap: 50px; }
+    .artifact-frame.tilt-b { margin-top: 0; }
+    .reflect-grid { grid-template-columns: 1fr; gap: 34px; }
+    .implication { grid-template-columns: 1fr; gap: 6px; }
+    .next-project-row { flex-direction: column; align-items: flex-start; }
+    .footer-row { flex-direction: column; }
+    .footer-cols { gap: 40px; }
+    .floral-corner { display: none; }
+  }
+
+  /* ---------- MOTIFS ---------- */
+  .star-mark { width: 15px; height: 15px; display: inline-block; flex-shrink: 0; color: var(--orchid); vertical-align: -2px; }
+  .step .star-mark { margin-right: 6px; }
+  .star-mark.xl { width: 40px; height: 40px; }
+  .star-mark.paper { color: var(--paper); opacity: 0.8; }
+  .star-mark.spin-slow { animation: spin-slow 22s linear infinite; }
+  @keyframes spin-slow { to { transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) { .star-mark.spin-slow { animation: none; } }
+  .wordmark-row { display: inline-flex; align-items: center; gap: 8px; }
+  .floral-corner { position: absolute; pointer-events: none; opacity: 0.5; z-index: 1; }
+  .floral-corner svg { display: block; width: 100%; height: 100%; }
+
+  /* ---------- SECTION TRACKER ---------- */
+  .toc {
+    position: fixed;
+    top: 50%;
+    right: 30px;
+    transform: translateY(-50%);
+    z-index: 40;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: rgba(248,244,244,0.78);
+    backdrop-filter: blur(10px) saturate(1.3);
+    -webkit-backdrop-filter: blur(10px) saturate(1.3);
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    padding: 18px 13px;
+    box-shadow: 0 16px 34px -18px rgba(35,42,53,0.3);
+  }
+  .toc a {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    text-decoration: none;
+    color: var(--ink-soft);
+    opacity: 0.55;
+    transition: opacity 0.25s ease, color 0.25s ease;
+  }
+  .toc a .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--ink-soft); opacity: 0.5; flex-shrink: 0;
+    transition: background 0.25s ease, opacity 0.25s ease, transform 0.25s ease;
+  }
+  .toc a .label {
+    font-family: 'Lora', serif;
+    font-size: 12.5px;
+    font-weight: 500;
+    max-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    transition: max-width 0.3s ease;
+  }
+  .toc a:hover, .toc a.active { opacity: 1; color: var(--ink); }
+  .toc a:hover .label, .toc a.active .label { max-width: 160px; }
+  .toc a.active .dot { background: var(--orchid); opacity: 1; transform: scale(1.35); }
+  @media (max-width: 1320px) { .toc { display: none; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav-row">
+    <a class="wordmark wordmark-row" href="index.html">
+      <svg class="star-mark paper" viewBox="0 0 100 100" fill="currentColor" aria-hidden="true"><polygon points="50,3 55.19,39.22 86.75,20.7 63.43,46.93 95.82,60.46 59.76,57.78 70.39,92.35 50,63 29.61,92.35 40.45,57.62 4.18,60.46 36.69,46.96 13.25,20.7 44.53,38.64"/></svg>
+      Cecilia Chang
+    </a>
+    <nav>
+      <ul>
+        <li><a href="index.html#work" class="current">Work</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="mailto:cecilc7@uw.edu">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<section class="case-hero">
+  <div class="wrap">
+    <a class="back-link" href="index.html#work">&larr; Back to work</a>
+    <div class="kicker">Case Study</div>
+    <h1>ADHD Accessibility in Higher Education</h1>
+    <p class="sub">A qualitative research study on how ADHD shapes the academic experience in higher education, and a tiered framework to inform institutions how to support students who learn differently.</p>
+
+    <div class="meta-row">
+      <div class="meta-item">
+        <h4>Role</h4>
+        <p>Researcher — recruitment, interviewing, coding, synthesis, write-up</p>
+      </div>
+      <div class="meta-item">
+        <h4>Sample</h4>
+        <p>n=8, purposive — formal ADHD diagnosis, ages 21–50</p>
+      </div>
+      <div class="meta-item">
+        <h4>Method</h4>
+        <p>Semi-structured interviews · inductive thematic analysis</p>
+      </div>
+      <div class="meta-item">
+        <h4>Deliverable</h4>
+        <p>3-level framework + conference poster, presented at UCSC's undergraduate research conference</p>
+      </div>
+    </div>
+    <p style="margin-top: 22px; font-size: 13.5px; color: rgba(250,246,238,0.45);">Co-authored with Chloe Kenrow, advised by Robert Majzler, Ph.D. — grew out of PSYC 182: Qualitative Research Methods, UCSC.</p>
+  </div>
+  <svg class="star-mark xl spin-slow paper" viewBox="0 0 100 100" fill="currentColor" aria-hidden="true" style="position:absolute; top:90px; right:7%; opacity:0.4;"><polygon points="50,3 55.19,39.22 86.75,20.7 63.43,46.93 95.82,60.46 59.76,57.78 70.39,92.35 50,63 29.61,92.35 40.45,57.62 4.18,60.46 36.69,46.96 13.25,20.7 44.53,38.64"/></svg>
+  <div class="floral-corner" style="width:120px; height:170px; left:-15px; bottom:-20px; transform:scaleX(-1) rotate(-6deg); opacity:0.3;">
+    <svg viewBox="0 0 240 320" aria-hidden="true">
+      <path d="M120 310 C 100 250, 150 200, 110 150 C 80 110, 130 70, 105 20" fill="none" stroke="#F8F4F4" stroke-width="2" stroke-linecap="round" opacity="0.4"/>
+      <path d="M112 240 C 85 235, 70 215, 78 195 C 100 205, 112 220, 112 240 Z" fill="#9CAA7C" opacity="0.5" stroke="#F8F4F4" stroke-width="1" stroke-opacity="0.3"/>
+      <path d="M115 170 C 145 168, 162 150, 156 128 C 132 136, 118 150, 115 170 Z" fill="#9CAA7C" opacity="0.45" stroke="#F8F4F4" stroke-width="1" stroke-opacity="0.3"/>
+      <g transform="translate(105,25)">
+        <ellipse cx="0" cy="-12" rx="7" ry="13" fill="#D9B9CB" opacity="0.75" transform="rotate(0)"/>
+        <ellipse cx="0" cy="-12" rx="7" ry="13" fill="#D9B9CB" opacity="0.75" transform="rotate(72)"/>
+        <ellipse cx="0" cy="-12" rx="7" ry="13" fill="#D9B9CB" opacity="0.75" transform="rotate(144)"/>
+        <ellipse cx="0" cy="-12" rx="7" ry="13" fill="#D9B9CB" opacity="0.75" transform="rotate(216)"/>
+        <ellipse cx="0" cy="-12" rx="7" ry="13" fill="#D9B9CB" opacity="0.75" transform="rotate(288)"/>
+        <circle r="5" fill="#87C8C5"/>
+      </g>
+    </svg>
+  </div>
+</section>
+
+<!-- ============ THE QUESTION ============ -->
+<section class="section" id="question">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>The question</h2>
+      <span class="step"><svg class="star-mark" viewBox="0 0 100 100" fill="currentColor" aria-hidden="true"><polygon points="50,3 55.19,39.22 86.75,20.7 63.43,46.93 95.82,60.46 59.76,57.78 70.39,92.35 50,63 29.61,92.35 40.45,57.62 4.18,60.46 36.69,46.96 13.25,20.7 44.53,38.64"/></svg>01 — Origin</span>
+    </div>
+    <div class="prose">
+      <p>Existing ADHD research isolated single variables — counseling access, stigma, self-compassion — each in a controlled, contained way. Missing was the first-person version: what does ADHD actually feel like day to day inside a system not built for it, and what would need to change? Chloe Kenrow and I scoped that into two research questions:</p>
+      <div class="pull-quote">
+        <p>RQ1 — How do individuals with ADHD experience learning and academic life in higher education?</p>
+      </div>
+      <div class="pull-quote">
+        <p>RQ2 — How do environmental and institutional factors hinder or support their success?</p>
+      </div>
+      <p>RQ1 surfaces the lived experience; RQ2 turns it into something an institution can act on.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ APPROACH ============ -->
+<section class="section section-alt" id="approach">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>The approach</h2>
+      <span class="step"><svg class="star-mark" viewBox="0 0 100 100" fill="currentColor" aria-hidden="true"><polygon points="50,3 55.19,39.22 86.75,20.7 63.43,46.93 95.82,60.46 59.76,57.78 70.39,92.35 50,63 29.61,92.35 40.45,57.62 4.18,60.46 36.69,46.96 13.25,20.7 44.53,38.64"/></svg>02 — Method</span>
+    </div>
+    <div class="prose" style="max-width: 760px; margin-bottom: 48px;">
+      <p><strong>Why interviews, not a survey:</strong> ADHD presentation varies enough person-to-person that a Likert-scale instrument would have flattened exactly the variability we needed to see. We traded breadth for depth.</p>
+    </div>
+    <div class="two-col">
+      <div class="prose">
+        <p><strong>Sample &amp; fieldwork:</strong> n=8 (7 undergraduates, 1 faculty member), ages 21–50, all with a formal ADHD diagnosis, at universities in Northern California. Semi-structured interviews in person and over Zoom, transcribed by hand.</p>
+      </div>
+      <div class="prose">
+        <p><strong>Analysis:</strong> inductive thematic analysis (Braun &amp; Clarke, 2013) — coded line by line, letting categories build from what people actually said. 12 subthemes, organized into 3 levels of influence: personal, environmental, institutional.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THE MESSY MIDDLE ============ -->
+<section class="section" id="messy-middle">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>The messy middle</h2>
+      <span class="step"><svg class="star-mark" viewBox="0 0 100 100" fill="currentColor" aria-hidden="true"><polygon points="50,3 55.19,39.22 86.75,20.7 63.43,46.93 95.82,60.46 59.76,57.78 70.39,92.35 50,63 29.61,92.35 40.45,57.62 4.18,60.46 36.69,46.96 13.25,20.7 44.53,38.64"/></svg>03 — Reflection</span>
+    </div>
+
+    <div class="lesson">
+      <p class="lead">The data didn't agree with itself — and that was the finding.</p>
+      <p class="body-text">I expected one unified "ADHD experience" to emerge. Instead I got eight people who barely resembled each other — hyperfocus and upside for one, a year-long diagnosis slog for another, an executive-function reframe for a third. "Variability among individuals" became our single most-coded theme. Learning to let a theme be "it depends," without treating that as a failure of analysis, was the real shift.</p>
+    </div>
+
+    <div class="lesson">
+      <p class="lead">Naming where the variability lived turned it into something actionable.</p>
+      <p class="body-text">The contradictions kept showing up, but they clustered: some friction lived inside a person's own head, some in a room or a syllabus, some in policy nobody in that room could change. Organizing those as three levels — personal, environmental, institutional — turned "it depends" into "it depends on which of three systems you're looking at," a finding an institution can actually build against.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt" id="artifacts">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>From the raw material</h2>
+        <p style="margin:0; max-width:44ch; color:var(--ink-soft); font-size:15px;">The actual coding pass and deck slide behind the polish above.</p>
+      </div>
+      <span class="step"><svg class="star-mark" viewBox="0 0 100 100" fill="currentColor" aria-hidden="true"><polygon points="50,3 55.19,39.22 86.75,20.7 63.43,46.93 95.82,60.46 59.76,57.78 70.39,92.35 50,63 29.61,92.35 40.45,57.62 4.18,60.46 36.69,46.96 13.25,20.7 44.53,38.64"/></svg>— Artifacts</span>
+    </div>
+    <div class="artifacts-grid">
+      <div>
+        <div class="artifact-frame tilt-a">
+          <img src="artifact-coding-table.jpg" alt="A coding table listing themes, subthemes, quote counts, and example quotes from the ADHD interview transcripts.">
+        </div>
+        <p class="artifact-caption">The first coding pass — the same twelve subthemes the poster later uses, before they had a shape.</p>
+      </div>
+      <div>
+        <div class="artifact-frame tilt-b">
+          <img src="artifact-deck-theme3.jpg" alt="A presentation slide titled Theme 3: Variability Among Individuals, showing a participant quote and a breakdown of typology, DRC accommodations, and social relationships.">
+        </div>
+        <p class="artifact-caption">An early slide, built around a flat theme list we later abandoned for the three-level framework below.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINDINGS ============ -->
+<section class="section" id="findings">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>What we found</h2>
+        <p style="margin:0; max-width:48ch; color:var(--ink-soft); font-size:15px;">Three levels of influence, radiating out from the individual to the institution.</p>
+      </div>
+      <span class="step"><svg class="star-mark" viewBox="0 0 100 100" fill="currentColor" aria-hidden="true"><polygon points="50,3 55.19,39.22 86.75,20.7 63.43,46.93 95.82,60.46 59.76,57.78 70.39,92.35 50,63 29.61,92.35 40.45,57.62 4.18,60.46 36.69,46.96 13.25,20.7 44.53,38.64"/></svg>04 — Framework</span>
+    </div>
+    <div class="findings-grid">
+      <div class="finding-card">
+        <div class="finding-num">01 — Personal · 114 coded mentions</div>
+        <h3>Attention is regulated, not absent</h3>
+        <blockquote>"I know I have to do it but I physically can't do it." — Participant F</blockquote>
+        <p class="note">Attention regulation, executive function, and real adaptive upside (hyperfocus, rapid idea-connection). Participants showed strong attention when interest and context aligned — challenging the idea that ADHD simply means "poor attention."</p>
+      </div>
+      <div class="finding-card">
+        <div class="finding-num">02 — Environmental · 78 coded mentions</div>
+        <h3>Context changes capability</h3>
+        <blockquote>"Being home doesn't help because it's really easy to get distracted... Studying with other people definitely helps." — Participant C</blockquote>
+        <p class="note">Noise, pacing, peer support, task design. The same person looked meaningfully more or less capable depending on the room, the syllabus, and who else was in it.</p>
+      </div>
+      <div class="finding-card">
+        <div class="finding-num">03 — Institutional · 64 coded mentions</div>
+        <h3>Diagnosis is itself a barrier</h3>
+        <blockquote>"It is very set up to be taught to like neurotypical people... I don't have the same love for it as I did... I see it more as a chore." — Participant A</blockquote>
+        <p class="note">Standardized deadlines, one-size-fits-all evaluation, and an accommodations process that assumes a diagnosis is easy to get. Most of the accessibility work currently falls on the person with ADHD, not the system.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DESIGNING THE INFOGRAPHIC ============ -->
+<section class="section section-alt" id="infographic">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>Designing the infographic</h2>
+        <p style="margin:0; max-width:48ch; color:var(--ink-soft); font-size:15px;">Turning a coding table into something a stranger could understand in ten seconds, walking past a poster board.</p>
+      </div>
+      <span class="step"><svg class="star-mark" viewBox="0 0 100 100" fill="currentColor" aria-hidden="true"><polygon points="50,3 55.19,39.22 86.75,20.7 63.43,46.93 95.82,60.46 59.76,57.78 70.39,92.35 50,63 29.61,92.35 40.45,57.62 4.18,60.46 36.69,46.96 13.25,20.7 44.53,38.64"/></svg>05 — Communication design</span>
+    </div>
+
+    <div class="prose" style="max-width: 760px; margin-bottom: 8px;">
+      <p>A poster session gives you about ten seconds before someone decides whether to stop. Our data was a spreadsheet-shaped table of twelve subthemes — accurate, and unreadable at a glance. The design problem: make the structure of the finding visible before anyone reads a word.</p>
+    </div>
+
+    <div class="poster-frame">
+      <img src="poster-adhd.jpg" alt="Research poster titled 'Not One-Size-Fits-All: ADHD Experiences in the Higher Education System,' presented at UCSC's undergraduate research conference, showing a nested circle diagram of Personal, Environmental, and Institutional levels of influence surrounded by participant quotes, key insights, and implications.">
+    </div>
+    <div class="poster-caption">
+      <p>The full poster as presented — Cecilia Chang, Chloe Kenrow, &amp; Robert Majzler, Ph.D., UCSC.</p>
+    </div>
+
+    <div class="detail-frame">
+      <img src="poster-diagram-detail.jpg" alt="Close-up of the poster's nested circle diagram, showing the Personal, Environmental, and Institutional rings with subtheme icons, friction and support columns, and anchored participant quotes.">
+    </div>
+    <p class="artifact-caption" style="margin-bottom: 44px;">The diagram itself, close up — friction and support mirrored at every ring, quotes anchored to their level.</p>
+
+    <div class="two-col">
+      <div class="prose">
+        <p><strong>Nested circles, not a flat grid.</strong> Institutional context surrounds environmental context, which surrounds the individual — concentric rings let the diagram argue that point before anyone read a label.</p>
+        <p><strong>A deliberate color gradient.</strong> Purple → green → blue moves the eye outward with the rings, and stays legible in black-and-white and for colorblind viewers.</p>
+      </div>
+      <div class="prose">
+        <p><strong>Icons before bullets.</strong> Each subtheme got a simple pictogram, readable from six feet away.</p>
+        <p><strong>Quotes on the perimeter.</strong> Six participant quotes anchored to the diagram's edge — a real voice in someone's own words is what makes people stop and read.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHAT IT MEANS ============ -->
+<section class="section section-alt" id="recommendations">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>What it means</h2>
+        <p style="margin:0; max-width:48ch; color:var(--ink-soft); font-size:15px;">The reframe: not "how do we help someone adapt to the system," but "how might we design the system to support different ways of learning." Four recommendations, scoped to who owns each fix.</p>
+      </div>
+      <span class="step"><svg class="star-mark" viewBox="0 0 100 100" fill="currentColor" aria-hidden="true"><polygon points="50,3 55.19,39.22 86.75,20.7 63.43,46.93 95.82,60.46 59.76,57.78 70.39,92.35 50,63 29.61,92.35 40.45,57.62 4.18,60.46 36.69,46.96 13.25,20.7 44.53,38.64"/></svg>06 — Recommendations</span>
+    </div>
+    <div class="implications-list">
+      <div class="implication">
+        <span class="tag">Course design</span>
+        <p><strong>Provide multiple ways to access and engage with content.</strong> Came up across nearly every interview — not as an accommodation request, but as the difference between material landing or not.</p>
+      </div>
+      <div class="implication">
+        <span class="tag">Course design</span>
+        <p><strong>Reduce unnecessary cognitive load.</strong> Clear instructions, flexible pacing, and structured options lowered friction without lowering rigor.</p>
+      </div>
+      <div class="implication">
+        <span class="tag">Institution</span>
+        <p><strong>Normalize supports universally</strong> rather than relying solely on formal accommodations. Right now, most of that work falls on the person with ADHD to identify, request, and justify.</p>
+      </div>
+      <div class="implication">
+        <span class="tag">Process</span>
+        <p><strong>Involve neurodivergent voices</strong> in designing the policies, spaces, and tools meant to support them — every recommendation above came directly out of participant interviews.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REFLECTION ============ -->
+<section class="section reflection" id="retro">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>If I did this again</h2>
+        <p>Two things I'd change with what I know now.</p>
+      </div>
+      <span class="step" style="color: rgba(250,246,238,0.5);">07 — Reflection</span>
+    </div>
+    <div class="reflect-grid">
+      <div class="reflect-item">
+        <p class="lead">I'd sketch the visual framework earlier, not after.</p>
+        <p class="body-text">The nested-circle model didn't show up until we were already building the poster. Visualizing relationships between codes earlier would have surfaced "levels of influence" sooner, instead of under deadline pressure.</p>
+      </div>
+      <div class="reflect-item">
+        <p class="lead">I'd add a second coder for inter-rater reliability.</p>
+        <p class="body-text">By the time I was deep in the transcripts, I was pattern-matching almost too well. A second, independent coder comparing codes against mine would have been a real check on that bias.</p>
+      </div>
+    </div>
+
+    <p class="closing-note">This project is also why I ended up in UX research instead of staying in direct clinical work — I liked helping one person, but liked it more when that conversation explained a pattern that could inform how an institution serves the next hundred. That's the instinct behind every study I scope now, and the lens I bring to my current research at Healyan.</p>
+  </div>
+</section>
+
+<section class="next-project">
+  <div class="wrap next-project-row">
+    <div>
+      <h2>More work, this way.</h2>
+      <p>See what else I've been building.</p>
+    </div>
+    <a class="project-link" href="index.html#work">Back to selected work</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-row">
+      <div class="footer-cta">
+        <h2>Let's talk.</h2>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Navigate</h4>
+          <ul>
+            <li><a href="index.html#work">Work</a></li>
+            <li><a href="about.html">About</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="mailto:cecilc7@uw.edu">Email</a></li>
+            <li><a href="https://www.linkedin.com/in/cecili7" target="_blank" rel="noopener">LinkedIn</a></li>
+            <li><a href="Cecilia-Chang-Resume.pdf" target="_blank" rel="noopener">Resume</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>Seattle, WA</span>
+      <span>© 2026 Cecilia Chang</span>
+    </div>
+  </div>
+</footer>
+
+<nav class="toc" aria-label="Section tracker">
+  <a href="#question"><span class="dot"></span><span class="label">The question</span></a>
+  <a href="#approach"><span class="dot"></span><span class="label">The approach</span></a>
+  <a href="#messy-middle"><span class="dot"></span><span class="label">The messy middle</span></a>
+  <a href="#artifacts"><span class="dot"></span><span class="label">Raw material</span></a>
+  <a href="#findings"><span class="dot"></span><span class="label">What we found</span></a>
+  <a href="#infographic"><span class="dot"></span><span class="label">The infographic</span></a>
+  <a href="#recommendations"><span class="dot"></span><span class="label">What it means</span></a>
+  <a href="#retro"><span class="dot"></span><span class="label">If I did this again</span></a>
+</nav>
+
+<script>
+(function () {
+  var sections = Array.prototype.slice.call(document.querySelectorAll('section[id]'));
+  var links = Array.prototype.slice.call(document.querySelectorAll('.toc a'));
+  if (!sections.length || !links.length) return;
+  var map = {};
+  links.forEach(function (l) { map[l.getAttribute('href').slice(1)] = l; });
+  var ticking = false;
+  function updateActive() {
+    ticking = false;
+    var threshold = window.innerHeight * 0.35;
+    var current = sections[0];
+    for (var i = 0; i < sections.length; i++) {
+      var r = sections[i].getBoundingClientRect();
+      if (r.top <= threshold) current = sections[i];
+    }
+    var link = map[current.id];
+    if (!link) return;
+    links.forEach(function (l) { l.classList.remove('active'); });
+    link.classList.add('active');
+  }
+  function onScroll() {
+    if (!ticking) {
+      window.requestAnimationFrame(updateActive);
+      ticking = true;
+    }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  updateActive();
+})();
+</script>
+
+</body>
+</html>
